@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\IConfiguration.cs" />
+    <Compile Include="FileSystem\Directory.cs" />
     <Compile Include="Locator\Locator.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

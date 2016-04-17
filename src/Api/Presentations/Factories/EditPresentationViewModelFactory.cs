@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Sogeti.Academy.Api.General.Http;
 using Sogeti.Academy.Application.Presentations.Commands.Edit;
+using Sogeti.Academy.Infrastructure.FileSystem;
 
 namespace Sogeti.Academy.Api.Presentations.Factories
 {
@@ -15,14 +16,14 @@ namespace Sogeti.Academy.Api.Presentations.Factories
         private readonly IEditFileViewModelFactory _editFileViewModelFactory;
         private readonly MultipartFormDataProviderFactory _multipartFormDataProviderFactory;
 
-        public EditPresentationViewModelFactory(IServer server)
-            : this(server, new EditFileViewModelFactory())
+        public EditPresentationViewModelFactory(IServer server, IDirectory directory)
+            : this(server, directory, new EditFileViewModelFactory())
         {
         }
 
-        public EditPresentationViewModelFactory(IServer server, IEditFileViewModelFactory editFileViewModelFactory)
+        public EditPresentationViewModelFactory(IServer server, IDirectory directory, IEditFileViewModelFactory editFileViewModelFactory)
         {
-            _multipartFormDataProviderFactory = new MultipartFormDataProviderFactory(server);
+            _multipartFormDataProviderFactory = new MultipartFormDataProviderFactory(server, directory);
             _editFileViewModelFactory = editFileViewModelFactory;
         }
 

@@ -10,6 +10,7 @@ using Sogeti.Academy.Application.Presentations.Commands.Remove;
 using Sogeti.Academy.Application.Presentations.Queries.GetDetail;
 using Sogeti.Academy.Application.Presentations.Queries.GetFile;
 using Sogeti.Academy.Application.Presentations.Queries.GetList;
+using Sogeti.Academy.Infrastructure.FileSystem;
 using Sogeti.Academy.Persistence.Presentations.Storage;
 
 namespace Sogeti.Academy.Api.Presentations.Controllers
@@ -33,12 +34,13 @@ namespace Sogeti.Academy.Api.Presentations.Controllers
                   new AddPresentationCommand(new PresentationContext()), 
                   new EditPresentationCommand(new PresentationContext()), 
                   new RemovePresentationCommand(new PresentationContext()),
-                  new Server())  
+                  new Server(), 
+                  new Directory())  
         {
             
         }
 
-        public PresentationsController(IGetListQuery getListQuery, IGetDetailQuery getDetailQuery, IGetFileQuery getFileQuery, IAddPresentationCommand addPresentationCommand, IEditPresentationCommand editPresentationCommand, IRemovePresentationCommand removePresentationCommand, IServer server)
+        public PresentationsController(IGetListQuery getListQuery, IGetDetailQuery getDetailQuery, IGetFileQuery getFileQuery, IAddPresentationCommand addPresentationCommand, IEditPresentationCommand editPresentationCommand, IRemovePresentationCommand removePresentationCommand, IServer server, IDirectory directory)
         {
             _getListQuery = getListQuery;
             _getDetailQuery = getDetailQuery;
@@ -46,8 +48,8 @@ namespace Sogeti.Academy.Api.Presentations.Controllers
             _addPresentationCommand = addPresentationCommand;
             _editPresentationCommand = editPresentationCommand;
             _removePresentationCommand = removePresentationCommand;
-            _addPresentationViewModelFactory = new AddPresentationViewModelFactory(server);
-            _editPresentationViewModelFactory = new EditPresentationViewModelFactory(server);
+            _addPresentationViewModelFactory = new AddPresentationViewModelFactory(server, directory);
+            _editPresentationViewModelFactory = new EditPresentationViewModelFactory(server, directory);
         }
 
         [HttpGet]

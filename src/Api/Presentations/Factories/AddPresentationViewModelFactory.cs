@@ -3,6 +3,7 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Sogeti.Academy.Api.General.Http;
 using Sogeti.Academy.Application.Presentations.Commands.Add;
+using Sogeti.Academy.Infrastructure.FileSystem;
 
 namespace Sogeti.Academy.Api.Presentations.Factories
 {
@@ -16,10 +17,10 @@ namespace Sogeti.Academy.Api.Presentations.Factories
         private readonly MultipartFormDataProviderFactory _multipartFormDataProviderFactory;
         private readonly IAddFileViewModelFactory _addFileViewModelFactory;
 
-        public AddPresentationViewModelFactory(IServer server)
+        public AddPresentationViewModelFactory(IServer server, IDirectory directory)
         {
             _addFileViewModelFactory = new AddFileViewModelFactory();
-            _multipartFormDataProviderFactory = new MultipartFormDataProviderFactory(server);
+            _multipartFormDataProviderFactory = new MultipartFormDataProviderFactory(server, directory);
         }
 
         public async Task<AddPresentationViewModel> Create(HttpRequestMessage request)
